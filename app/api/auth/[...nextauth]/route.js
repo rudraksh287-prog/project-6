@@ -22,7 +22,7 @@ import GitHub from "next-auth/providers/github";
 import mongoose from "mongoose";
 import User from "@/models/User";
 import Payment from "@/models/Payment";
-import connectDb from "@/db/connnectDb";
+import connectDb from "@/db/connectDb";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [GitHub],

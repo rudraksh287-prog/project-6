@@ -6,8 +6,8 @@ import Link from 'next/link'
 
 const Navbar = () => {
   const { data: session } = useSession()
-  console.log(session?.user);
-console.log(session?.user?.name);
+//   console.log(session?.user);
+// console.log(session?.user?.name);
   
   const [showdropdown, setshowdropdown] = useState(false)
   // if (session) {
@@ -16,7 +16,7 @@ console.log(session?.user?.name);
   //     <button onClick={() => { signOut() }}>Sign Out</button>
   //   </>
   // }
-console.log(session);
+// console.log(session);
   return (
     <nav>
       <div className="bg-black text-white flex justify-between px-4 items-center h-16">
