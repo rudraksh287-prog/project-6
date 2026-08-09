@@ -22,7 +22,7 @@ let options={
 }
 
 let x= await instance.orders.create(options)
-await Payment.create({oid: x.id, amount:amount ,to_user: to_username, name:paymentform.name, message: paymentform.message})
+await Payment.create({oid: x.id, amount:amount/100 ,to_user: to_username, name:paymentform.name, message: paymentform.message})
 return x
 }
 

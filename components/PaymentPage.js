@@ -40,7 +40,7 @@ const getData= async ()=>{
         let a = await initiate(amount , username , paymentform)
         let orderId=a.id;
         var options= {
-            "key": process.env.NEXT_PUBLIC_KEY_ID, // Enter the Key ID generated from the Dashboard
+            "key": currentUser.razorpayid , // Enter the Key ID generated from the Dashboard
             "amount": amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
             "currency": "INR",
             "name": "Get Me A Chai", //your business name
@@ -72,9 +72,9 @@ const getData= async ()=>{
 
 
        <div className='cover w-full relative'>
-                <img className="w-full h-[350px] object-cover" src="/patreon_banner.gif" alt="" />
-                <div className="absolute -bottom-20 right-[46%] border-2 rounded-4xl border-white">
-                    <img width={100} height={100} className='rounded-4xl w-[100px] h-[100px] object-cover' src="/catpic.jpg" alt="" />
+                <img className="w-full h-[350px] object-contain" src={currentUser.coverpic} alt="" />
+                <div className="absolute -bottom-20 right-[46%] border-2  rounded-4xl overflow-hidden border-white">
+                    <img width={100} height={100} className=' rounded-4xl w-[100px] h-[100px] object-cover' src={currentUser.profilepic} alt="" />
                 </div>
             </div>
             <div className="info flex items-center justify-center gap-2 flex-col my-24 mb-32">
@@ -88,6 +88,7 @@ const getData= async ()=>{
                     <div className="supporters  w-1/2  bg-slate-900 text-white rounded-lg p-10 ">
                         <h2 className='font-bold text-2xl my-5'>SUPporterS</h2>
                         <ul className='mx-5 text-lg'>
+                            {payments.length==0 && <li>No Payments yet</li>}
                             {payments.map((p,i)=>{
                                 return <li key={p._id} className='flex gap-2 items-center my-4'>
                                 <img width={30} src="/avatar.gif" alt="user avatar" />
@@ -145,7 +146,7 @@ const getData= async ()=>{
                             />
                             <div className="text-center">
 
-                                <button type="button" className=" w-30 text-white bg-gradient-to-r from-purple-500 via-purple-500 to-purple-600 hover:bg-gradient-to-br focus:ring-2 focus:outline-none focus:ring-purple-300 dark:focus:ring-white font-medium rounded-2xl text-sm px-4 py-2.5 text-center leading-5 mx-1">PAY</button>
+                                <button onClick={()=>{pay(Number.parseInt(paymentform.amount)*100)}} type="button" className=" w-30 text-white bg-gradient-to-r from-purple-500 via-purple-500 to-purple-600 hover:bg-gradient-to-br focus:ring-2 focus:outline-none focus:ring-purple-300 dark:focus:ring-white font-medium rounded-2xl text-sm px-4 py-2.5 text-center leading-5 mx-1">PAY</button>
                             </div>
 
                             {/* <button className="bg-slate-800 p-3 rounded-lg">

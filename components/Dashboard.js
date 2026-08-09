@@ -33,8 +33,9 @@ const Dashboard = () => {
     }
 
     const handleSubmit = async (e) => {
-
+update()
         let a = await updateProfile(e, session.user.name)
+        alert("Profile Updated")
         // toast('Profile Updated', {
         //     position: "top-right",
         //     autoClose: 5000,
