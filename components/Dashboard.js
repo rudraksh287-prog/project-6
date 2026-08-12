@@ -3,25 +3,40 @@ import React, { useEffect, useState } from 'react'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from 'next/navigation'
 import { fetchuser, updateProfile } from '@/actions/useractions'
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import { Bounce } from 'react-toastify';
 
 const Dashboard = () => {
-    const { data: session, update } = useSession()
+    const { data: session, update, status } = useSession()
     const router = useRouter()
     const [form, setform] = useState({})
 
-    useEffect(() => {
-        // console.log(session)
+    // useEffect(() => {
+    //     // console.log(session)
 
-        if (!session) {
-            router.push('/login')
-        }
-        else {
-            getData()
-        }
-    }, [])
+    //     if (!session) {
+    //         router.push('/login')
+    //     }
+    //     else {
+    //         getData()
+    //     }
+    // }, [])
+
+    // const { data: session, status, update } = useSession()
+
+useEffect(() => {
+    if (status === "loading") return
+
+    if (status === "unauthenticated") {
+        router.push("/login")
+        return
+    }
+
+    if (status === "authenticated") {
+        getData()
+    }
+}, [status])
 
     const getData = async () => {
         let u = await fetchuser(session.user.name)
@@ -33,20 +48,19 @@ const Dashboard = () => {
     }
 
     const handleSubmit = async (e) => {
-update()
         let a = await updateProfile(e, session.user.name)
-        alert("Profile Updated")
-        // toast('Profile Updated', {
-        //     position: "top-right",
-        //     autoClose: 5000,
-        //     hideProgressBar: false,
-        //     closeOnClick: true,
-        //     pauseOnHover: true,
-        //     draggable: true,
-        //     progress: undefined,
-        //     theme: "light",
-        //     transition: Bounce,
-        //     });
+        update()
+        // alert("Profile Updated")
+        toast('Profile Updated', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark"
+            });
     }
 
 
@@ -55,7 +69,7 @@ update()
 
     return (
         <>
-            {/* <ToastContainer
+            <ToastContainer
                 position="top-right"
                 autoClose={5000}
                 hideProgressBar={false}
@@ -66,9 +80,9 @@ update()
                 draggable
                 pauseOnHover
                 theme="light"
-            /> */}
+            />
             {/* Same as */}
-            {/* <ToastContainer /> */}
+            <ToastContainer />
             <div className='container mx-auto py-5 px-6 '>
                 <h1 className='text-center my-5 text-3xl font-bold'>Welcome to your Dashboard</h1>
 
