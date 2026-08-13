@@ -9,6 +9,7 @@ const Login = () => {
   const router = useRouter()
 
   useEffect(() => {
+    document.title= "LOgin - Get me a chai"
     if (session) {
       router.push("/dashboard")
     }
@@ -17,7 +18,7 @@ const Login = () => {
 
     return (
         <div className='py-14 mx-auto container'>
-            <h1 className=' text-center font-bold text-3xl'>Login to get your fans to support you</h1>
+            <h1 className=' text-center font-bold text-3xl'>Login to get STARTED</h1>
 
 
             <div className="flex flex-col gap-2 min-h-screen items-center p-10">
@@ -157,3 +158,5 @@ const Login = () => {
 }
 
 export default Login
+
+

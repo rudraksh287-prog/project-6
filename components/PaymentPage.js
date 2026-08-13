@@ -109,12 +109,29 @@ const PaymentPage = ({ username }) => {
             <Script src="https://checkout.razorpay.com/v1/checkout.js" />
 
 
-            <div className='cover w-full relative'>
-                <img className="w-full h-[350px] object-contain" src={currentUser.coverpic} alt="" />
+            {/* <div className='cover w-full relative'>
+                <img className="mt-3 w-full h-[350px] object-cover md:object-cover" src={currentUser.coverpic} alt="" />
                 <div className="absolute -bottom-20 right-[46%] border-2  rounded-4xl overflow-hidden border-white">
                     <img width={100} height={100} className=' rounded-4xl w-[100px] h-[100px] object-cover' src={currentUser.profilepic} alt="" />
                 </div>
-            </div>
+            </div> */}
+            <div className="cover w-full relative aspect-[3/1] sm:aspect-[4/1]">
+    <img
+        className="mt-3 absolute inset-0 w-full h-full object-cover"
+        src={currentUser.coverpic}
+        alt=""
+    />
+
+    <div className="absolute left-1/2 -translate-x-1/2 -bottom-12 sm:-bottom-16 border-2 rounded-full overflow-hidden border-white">
+        <img
+            width={100}
+            height={100}
+            className="rounded-full w-[90px] h-[90px] sm:w-[100px] sm:h-[100px] object-cover"
+            src={currentUser.profilepic}
+            alt=""
+        />
+    </div>
+</div>
             <div className="info flex items-center justify-center gap-2 flex-col my-24 mb-32">
                 <div className='font-bold text-lg'>
                     @{username}
@@ -124,7 +141,7 @@ const PaymentPage = ({ username }) => {
 
                 <div className="payment flex gap-3 w-[80%] mt-11">
                     <div className="supporters  w-1/2  bg-slate-900 text-white rounded-lg p-10 ">
-                        <h2 className='font-bold text-2xl my-5'>SUPporterS</h2>
+                        <h2 className='font-bold text-2xl my-5'>OUR SUPporterS</h2>
                         <ul className='mx-5 text-lg'>
                             {payments.length == 0 && <li>No Payments yet</li>}
                             {payments.map((p, i) => {
@@ -184,7 +201,7 @@ const PaymentPage = ({ username }) => {
                             />
                             <div className="text-center">
 
-                                <button onClick={() => { pay(Number.parseInt(paymentform.amount) * 100) }} type="button" className="w-30 text-white bg-gradient-to-r from-purple-500 via-purple-500 to-purple-600 hover:bg-gradient-to-br focus:ring-2 focus:outline-none focus:ring-purple-300 dark:focus:ring-white font-medium rounded-2xl text-sm px-4 py-2.5 text-center leading-5 mx-1 disabled:from-slate-400 disabled:via-slate-500 disabled:to-slate-600" disabled={paymentform.name?.length < 3 || paymentform.message?.length < 4}>PAY</button>
+                                <button onClick={() => { pay(Number.parseInt(paymentform.amount) * 100) }} type="button" className="w-30 text-white bg-gradient-to-r from-purple-500 via-purple-500 to-purple-600 hover:bg-gradient-to-br focus:ring-2 focus:outline-none focus:ring-purple-300 dark:focus:ring-white font-medium rounded-2xl text-sm px-4 py-2.5 text-center leading-5 mx-1 disabled:from-slate-400 disabled:via-slate-500 disabled:to-slate-600" disabled={paymentform.name?.length < 3 || paymentform.message?.length < 4 || paymentform.amount?.length< 1}>PAY</button>
                             </div>
 
                             {/* <button className="bg-slate-800 p-3 rounded-lg">

@@ -32,14 +32,57 @@ export const initiate = async (amount, to_username, paymentform) => {
 
 
 
+// export const fetchuser = async (username) => {
+//   await connectDb();
+//   let u = await User.findOne({ username })
+//   let user = u.toObject({ flattenObjectIds: true })
+//   return user
+//   // const u = await User.findOne({ username }).lean();
+
+//   // return JSON.parse(JSON.stringify(u));
+// };
+
+
+// export const fetchuser = async (email) => {
+
+//     await connectDb();
+
+//     const u = await User.findOne({ email }).lean()
+
+//     if (!u) {
+//         return null
+//     }
+
+//     return {
+//         ...u,
+//         _id: u._id.toString()
+//     }
+// }
+
 export const fetchuser = async (username) => {
   await connectDb();
-  let u = await User.findOne({ username })
-  let user = u.toObject({ flattenObjectIds: true })
-  return user
-  // const u = await User.findOne({ username }).lean();
 
-  // return JSON.parse(JSON.stringify(u));
+  const u = await User.findOne({ username }).lean();
+
+  if (!u) return null;
+
+  return {
+    ...u,
+    _id: u._id.toString(),
+  };
+};
+
+export const fetchuserByEmail = async (email) => {
+  await connectDb();
+
+  const u = await User.findOne({ email }).lean();
+
+  if (!u) return null;
+
+  return {
+    ...u,
+    _id: u._id.toString(),
+  };
 };
 
 export const fetchpayments = async (username) => {
@@ -53,7 +96,7 @@ export const fetchpayments = async (username) => {
 
   let p = await Payment.find({ to_user: username, done: true })
     .sort({ amount: -1 })
-    .limit(10)
+    .limit(6)
     .lean()
 
   return p.map(payment => ({
@@ -63,54 +106,98 @@ export const fetchpayments = async (username) => {
 }
 
 
-export const updateProfile = async (data, oldusername) => {
-  await connectDb();
+// export const updateProfile = async (data, oldusername) => {
+//   await connectDb();
 
-  const ndata = Object.fromEntries(data);
+//   const ndata = Object.fromEntries(data);
 
-  if (oldusername !== ndata.username) {
-    let u = await User.findOne({ username: ndata.username })
-    if (u) {
-      return { error: "Username already exists" }
+//   if (oldusername !== ndata.username) {
+//     let u = await User.findOne({ username: ndata.username })
+//     if (u) {
+//       return { error: "Username already exists" }
+//     }
+//     await User.updateOne(
+//       // {email: ndata.email}, ndata {this is already commented}
+//       { username: oldusername },
+//       { $set: ndata }
+//     )
+//     // Now update all the usernames in the Payments table {this is already commented}
+//     await Payment.updateMany(
+//       // {to_user: oldusername}, {to_user: ndata.username} {this is already commented}
+//       { to_user: oldusername },
+//       { $set: { to_user: ndata.username } }
+//     )
+
+
+//   }
+//   else {
+
+
+//     await User.updateOne(
+//       // {email: ndata.email}, ndata {this is already commented}
+//       { username: oldusername },
+//       { $set: ndata }
+//     )
+//   }
+  
+// };
+
+export const updateProfile = async (data, email) => {
+
+    await connectDb();
+
+    const ndata = Object.fromEntries(data);
+
+    const currentUser = await User.findOne({ email });
+
+    if (!currentUser) {
+        return {
+            error: "User not found"
+        };
     }
+
+    const oldusername = currentUser.username;
+    const newusername = ndata.username;
+
+    // Username is being changed
+    if (oldusername !== newusername) {
+
+        const existingUser = await User.findOne({
+            username: newusername
+        });
+
+        if (existingUser) {
+            return {
+                error: "Username already exists"
+            };
+        }
+
+        // Update user
+        await User.updateOne(
+            { email },
+            { $set: ndata }
+        );
+
+        // Move all payments to new username
+        await Payment.updateMany(
+            { to_user: oldusername },
+            { $set: { to_user: newusername } }
+        );
+
+        return {
+            success: true,
+            username: newusername
+        };
+    }
+
+    // Username didn't change
     await User.updateOne(
-      // {email: ndata.email}, ndata
-      { username: oldusername },
-      { $set: ndata }
-    )
-    // Now update all the usernames in the Payments table 
-    await Payment.updateMany(
-      // {to_user: oldusername}, {to_user: ndata.username}
-      { to_user: oldusername },
-      { $set: { to_user: ndata.username } }
-    )
+        { email },
+        { $set: ndata }
+    );
 
-
-  }
-  else {
-
-
-    await User.updateOne(
-      // {email: ndata.email}, ndata
-      { username: oldusername },
-      { $set: ndata }
-    )
-  }
-  // if (oldusername !== ndata.username) {
-  //   const existing = await User.findOne({ username: ndata.username });
-
-  //   if (existing) {
-  //     throw new Error("Username already exists");
-  //   }
-  // }
-  // console.log("ndata:", ndata);
-  // await User.updateOne(
-  //   { email: ndata.email },
-  //   { $set: ndata }
-  // );
-
-  // await User.updateOne(
-  //   { username: oldusername },
-  //   { $set: ndata }
-  // );
+    return {
+        success: true,
+        username: newusername
+    };
 };

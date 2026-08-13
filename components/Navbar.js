@@ -19,11 +19,11 @@ const Navbar = () => {
 // console.log(session);
   return (
     <nav>
-      <div className="bg-black text-white flex justify-between px-4 items-center h-16">
+      <div className="bg-black text-white flex justify-between px-4 items-center md:h-16 flex-col md:flex-row">
 
         <Link className="logo font-bold text-lg flex justify-center items-center" href={"/"}>
           <img width={44} src="/tea.gif" alt="" />
-          <span>GetMeAChai
+          <span className='text-2xl'>GetMeAChai
           </span>
         </Link>
 
@@ -34,7 +34,7 @@ const Navbar = () => {
           <li>SIgn Up</li>
           <li>LOg IN</li>
         </ul> */}
-        <div className='relative'>
+        <div className='relative flex flex-col justify-center items-center gap-2 md:flex-row '>
           {session && <>
             <button onClick={() => setshowdropdown(!showdropdown)}
             //  onBlur={() => {
