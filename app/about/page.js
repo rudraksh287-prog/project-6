@@ -7,14 +7,14 @@ const About = () => {
             {/* Intro */}
             <div className="mb-10">
                 <h1 className="text-3xl font-semibold mb-4">
-                    About Get Me a Chai..__
+                    About MUSE..__
                 </h1>
 
                 <p className="text-lg font-bold mb-6 text-green-900 leading-relaxed max-w-4xl">
-                    Get Me a Chai is a crowdfunding platform designed for creators
+                    MUSE is a crowdfunding platform designed for creators
                     to fund their projects with the support of their fans. It&apos;s
                     a space where your fans can directly contribute to your creative
-                    endeavors by buying you a chai. Unlock the potential of your
+                    endeavors. Unlock the potential of your
                     fanbase and bring your projects to life.
                 </p>
             </div>
@@ -229,5 +229,5 @@ const About = () => {
 export default About;
 
 export const metadata = {
-    title: "About - Get Me A Chai",
+    title: "About - MUSE",
 }

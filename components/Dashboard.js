@@ -267,7 +267,7 @@ const Dashboard = () => {
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover
-                theme="light"
+                theme="dark"
             />
 
             <div className='container mx-auto py-5 px-6'>

@@ -68,7 +68,7 @@ const PaymentPage = ({ username }) => {
             "key": currentUser.razorpayid, // Enter the Key ID generated from the Dashboard
             "amount": amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
             "currency": "INR",
-            "name": "Get Me A Chai", //your business name
+            "name": "MUSE", //your business name
             "description": "Test Transaction",
             "image": "https://example.com/your_logo",
             "order_id": orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
@@ -136,11 +136,11 @@ const PaymentPage = ({ username }) => {
                 <div className='font-bold text-lg'>
                     @{username}
                 </div>
-                <div className='text-slate-600'>LEt'S Help {username} get a CHAI !</div>
+                <div className='text-slate-600'>LEt'S Help {username}!</div>
                 <div className='text-slate-600'>{payments.length} Payments .   ₹{payments.reduce((a, b) => a + b.amount, 0)} Raised </div>
 
-                <div className="payment flex gap-3 w-[80%] mt-11">
-                    <div className="supporters  w-1/2  bg-slate-900 text-white rounded-lg p-10 ">
+                <div className="payment flex flex-col md:flex-row gap-3 w-[80%] mt-11">
+                    <div className="supporters w-full md:w-1/2  bg-slate-900 text-white rounded-lg p-10 ">
                         <h2 className='font-bold text-2xl my-5'>OUR SUPporterS</h2>
                         <ul className='mx-5 text-lg'>
                             {payments.length == 0 && <li>No Payments yet</li>}
@@ -168,7 +168,7 @@ const PaymentPage = ({ username }) => {
                         </ul>
                     </div>
 
-                    <div className="makepayment  w-1/2 bg-slate-900 text-white rounded-lg p-10">
+                    <div className="makepayment w-full  md:w-1/2 bg-slate-900 text-white rounded-lg p-10">
                         <h2 className="text-2xl font-bold my-5">Make a Payment</h2>
 
                         <div className="flex  flex-col gap-2">
@@ -209,7 +209,7 @@ const PaymentPage = ({ username }) => {
                             </button> */}
                         </div>
                         {/* OR CHOOSE FROM THESE AMOUNTs */}
-                        <div className=" flex gap-2 mt-5">
+                        <div className=" flex flex-col md:flex-row gap-2 mt-5">
                             <button onClick={() => { pay(1000) }} className="bg-slate-800 py-3 px-4 rounded-lg">
                                 Pay ₹10
                             </button>

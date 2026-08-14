@@ -96,7 +96,7 @@ export const fetchpayments = async (username) => {
 
   let p = await Payment.find({ to_user: username, done: true })
     .sort({ amount: -1 })
-    .limit(6)
+    .limit(4)
     .lean()
 
   return p.map(payment => ({

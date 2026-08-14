@@ -136,7 +136,7 @@ export default function Home() {
       <div className="flex flex-col gap-5 justify-center items-center h-[44vh] text-center   md:px-0 px-4">
 
         <div className="font-bold text-5xl flex justify-center items-center gap-2">
-          <span>Buy Me A Chai</span>
+          <span>Support what inspires you.</span>
           <span className="drop-shadow-[0_4px_12px_rgba(168,85,247,0.35)]">
             <img width={88} src="/tea.gif" alt="Chai" />
           </span>
@@ -176,7 +176,7 @@ export default function Home() {
       <div className="text-black container mx-auto pb-22 pt-10 px-4">
 
         <h2 className="text-3xl font-bold text-center my-10">
-          Your Fans Can Buy You a Chai
+          Your Fans Can support You
         </h2>
 
         <div className="flex gap-5 items-center flex-col md:flex-row justify-around">
@@ -249,11 +249,11 @@ export default function Home() {
       <div className="bg-black opacity-60 h-0.5"></div>
 
 
-      {/* Why Get Me A Chai Section */}
+      {/* Why MUSE Section */}
       <div className="text-black container mx-auto pb-22 pt-10 px-4">
 
         <h2 className="text-3xl font-bold text-center my-10">
-          Why Get Me A Chai?
+          Why MUSE?
         </h2>
 
         <div className="flex gap-5 flex-col items-center md:flex-row justify-around">
